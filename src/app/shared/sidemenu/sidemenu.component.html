@@ -1,0 +1,46 @@
+<ul
+  nz-menu
+  nzTheme="dark"
+  nzMode="inline"
+  [nzInlineCollapsed]="isCollapsed">
+
+  <ng-container *ngFor="let item of menuData">
+      <ng-container *ngIf="item.items && item.items.length > 0">
+          <li nz-submenu  [nzTitle]="!isCollapsed ? item.name : ''" nzIcon="form" [nzOpen]="item.open ? '': null">
+            <ul>
+              <li nz-menu-item nzMatchRouter *ngFor="let subItem of item.items" nzTitle="Dashboard">
+              <a routerLink="{{subItem.url}}">{{subItem.name}}</a>
+              </li>
+            </ul>
+          </li>  
+      </ng-container>
+      <ng-container *ngIf="!item.items || item.items.length <= 0">
+          <li nz-menu-item nz-tooltip [nzTitle]="isCollapsed ? item.name : ''" nzPlacement="right" nzMatchRouter>
+              <i nz-icon nzType="mail"></i>
+              <span><a routerLink="{{item.url}}">{{item.name}}</a></span>
+            </li>
+      </ng-container>
+  </ng-container>
+
+
+   <!-- <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+    <ul>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/welcome">Welcome</a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a>Monitor</a>  
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a>Workplace</a>
+      </li>
+    </ul>
+  </li>
+  <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
+    <ul>
+      <li nz-menu-item nzMatchRouter>
+        <a>Basic Form</a>
+      </li>
+    </ul>
+  </li>  -->
+</ul>
