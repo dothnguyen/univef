@@ -36,9 +36,16 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   initMap() {
+    var center = [ 39.8282, -98.5795 ];
+    var zoomLevel = 3;
+    if (this.defaultLocation) {
+      center = [this.defaultLocation.coord.lat, this.defaultLocation.coord.lng];
+      zoomLevel = this.defaultLocation.zoomLevel;
+    }
+
     this.map = L.map(this.mapId, {
-      center: [ 39.8282, -98.5795 ],
-      zoom: 3
+      center: center,
+      zoom: zoomLevel
     });
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
