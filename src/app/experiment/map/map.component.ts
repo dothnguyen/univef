@@ -1,4 +1,6 @@
-import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, Input } from '@angular/core';
+
+import { ZoomLocation } from '../../core/models/map.model';
 
 import * as L from 'leaflet';
 
@@ -11,6 +13,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   mapId: string;
   map: any;
+
+  @Input('defaultLocation') defaultLocation: ZoomLocation;
+
+  @Input('zoomLocations') zoomLocations: ZoomLocation[];
 
   constructor(element: ElementRef) {
       console.log(element.nativeElement);
