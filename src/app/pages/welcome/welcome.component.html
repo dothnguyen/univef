@@ -1,8 +1,11 @@
 <div map-component style="height: 600px; border: solid black 1px;"
-[defaultLocation]="zoomLocation"
->
+[defaultLocation]="defaultLocation"
+[zoomLocations]="zoomLocations">
 
 </div>
+
+<button nz-button nzType="primary" (click)="changeLocation()">Change Location</button>
+
 <div>
   INTERPRETING NONSENSE
   Don't bother typing “lorem ipsum” into Google translate. If you already tried, you may have gotten anything from "NATO" to "China", depending on how you capitalized the letters. The bizarre translation was fodder for conspiracy theories, but Google has since updated its “lorem ipsum” translation to, boringly enough, “lorem ipsum”.
