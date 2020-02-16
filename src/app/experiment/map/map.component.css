@@ -1,0 +1,9 @@
+:host ::ng-deep .zoomto-outer {
+    padding: 5px;
+    background-color: thistle;
+}
+
+:host ::ng-deep .zoomto-outer select {
+    padding: 5px;
+    margin-left: 5px;
+}
