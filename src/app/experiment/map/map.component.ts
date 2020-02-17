@@ -1,14 +1,8 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ElementRef,
-  Input
-} from '@angular/core';
-
+import { AfterViewInit, Component, ElementRef, Input, OnInit } from '@angular/core';
+import * as L from 'leaflet';
 import { ZoomLocation } from '../../core/models/map.model';
 
-import * as L from 'leaflet';
+
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -44,10 +38,30 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.buidLocationDropdown();
   }
 
+  private _showMarker: boolean = false;
+  get showMarker() { return this._showMarker;}
+  @Input('showMarker')
+  set showMarker(show: boolean) {
+    this._showMarker = show;
+
+    // initialize marker
+    this.initMarker();
+  }
+
+  private _markerLocation: L.LatLngTuple;
+  get markerLocation() { return this._markerLocation; }
+  @Input('markerLocation')
+  set markerLocation(loc: L.LatLngTuple) {
+    this._markerLocation = loc;
+
+    // display marker
+    this.changeMarkerLocation();
+  }
+
   zoomDropdownContainer: L.Control;
+  marker: L.Marker;
 
   constructor(element: ElementRef) {
-    console.log(element.nativeElement);
     if (!element.nativeElement.id) {
       element.nativeElement.id = new Date().getTime().toString();
     }
@@ -90,6 +104,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     if (this._zoomLocations) {
       this.buidLocationDropdown();
+    }
+
+    if (this._showMarker) {
+      this.initMarker();
     }
   }
 
@@ -136,7 +154,14 @@ export class MapComponent implements OnInit, AfterViewInit {
         div
           .querySelector('#ZoomLocationDropdown')
           .addEventListener('change', e => {
-            console.log(e);
+            const ele = e.currentTarget as HTMLSelectElement;
+            const opt = ele.querySelector('option:checked') as HTMLElement;
+
+            const zoom = opt.dataset.zoom;
+            const lat = opt.dataset.lat;
+            const lng = opt.dataset.long;
+
+            this.map.setView([lat, lng], zoom);
           });
 
         div.addEventListener('mousedown', L.DomEvent.stopPropagation);
@@ -146,6 +171,41 @@ export class MapComponent implements OnInit, AfterViewInit {
       };
 
       this.zoomDropdownContainer.addTo(this.map);
+    }
+  }
+
+  private initMarker() {
+    if (!this.map) {
+      return;
+    }
+
+    if (!this.marker) {
+      this.marker = new L.Marker(this._markerLocation ? this._markerLocation : this._defaultLocation.coord);
+      this.map.on('click', this.onMapClick.bind(this));
+    }
+
+    // set location if any
+    this.changeMarkerLocation();
+  }
+
+  private onMapClick(e: Event) {
+    console.log(e);
+  }
+
+  private changeMarkerLocation() {
+    if (!this.map) {
+      return;
+    }
+
+    if (!this.marker) {
+      return;
+    }
+
+    if (this._markerLocation) {
+      this.marker.setLatLng(this._markerLocation);
+      this.marker.addTo(this.map);
+    } else {
+      this.marker.removeFrom(this.map);
     }
   }
 }
