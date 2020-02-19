@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
 
-import { HeaderComponent } from './header/header.component';
-
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { from } from 'rxjs';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
@@ -17,11 +15,9 @@ import { SidemenuComponent } from './sidemenu/sidemenu.component';
     RouterModule
   ],
   declarations: [
-    HeaderComponent,
     SidemenuComponent
   ],
   exports: [
-    HeaderComponent,
     SidemenuComponent
   ]
 })

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapComponent } from './map/map.component';
+import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 
 
 @NgModule({
@@ -8,11 +9,12 @@ import { MapComponent } from './map/map.component';
     CommonModule
   ],
   declarations: [
-    MapComponent
+    MapComponent,
+    DynamicFormComponent
   ],
   exports: [
-    MapComponent
-
+    MapComponent,
+    DynamicFormComponent
   ]
 })
 export class ExperimentModule { }
