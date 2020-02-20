@@ -188,8 +188,11 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.changeMarkerLocation();
   }
 
-  private onMapClick(e: Event) {
-    console.log(e);
+  private onMapClick(e: L.LeafletMouseEvent) {
+    if (this._showMarker) {
+      this._markerLocation = [e.latlng.lat, e.latlng.lng];
+      this.changeMarkerLocation();
+    }
   }
 
   private changeMarkerLocation() {

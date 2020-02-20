@@ -58,7 +58,7 @@
 nz-header {
   padding: 0;
   width: 100%;
-  z-index: 1001; /*to be on top of the map layers*/
+  z-index: 1001;
 }
 
 .app-header {
