@@ -22,7 +22,22 @@ export class SidemenuComponent implements OnInit {
       {
         name: 'Home',
         url: '/welcome'
-      },{
+      },
+      {
+        name: 'Experiment',
+        open: false,
+        items: [
+          {
+            name: 'Maps',
+            url: '/experiment/maps'
+          },
+          {
+            name: 'Dynamic Forms',
+            url: '/experiment/dynamic-form'
+          }
+        ]
+      },
+      {
         name: 'Groups',
         url: '/super-admin/groups'
       },
