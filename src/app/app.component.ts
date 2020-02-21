@@ -11,7 +11,10 @@ export class AppComponent implements AfterViewInit {
   constructor() {}
 
   ngAfterViewInit() {
-    this.isCollapsed = false;
+    //this.isCollapsed = false;
+    setTimeout(()=> {
+      this.isCollapsed = false;
+    }, 50);
   }
 
   reloadMenu() {
