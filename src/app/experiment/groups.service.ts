@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,28 @@ export class GroupsService {
 
 
 
-constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {
+
+  }
 
 
+  getGroups(searchTerm: string, pageIndex: number, pageSize: number, sortBy: any[]): Observable<any> {
+    var params = new HttpParams().set('q', searchTerm)
+    .set('_page', pageIndex.toString())
+    .set('_limit', pageSize.toString())
+    .set('_sort', sortBy[0])
+    .set('_order', sortBy[1])
 
- }
+    return this.http.get('http://localhost:3000/groups', {params: params, observe: 'response' as 'body'})
+              .pipe(
+                map((resp: HttpResponse<any>) => {
+                  return {
+                    total: resp.headers['X-Total-Count'],
+                    groups: resp.body
+                  }
+                })
+              );
+  }
 
 }
 

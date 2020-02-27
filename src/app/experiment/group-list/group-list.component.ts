@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Group } from '../groups.service';
+import { Group, GroupsService } from '../groups.service';
 import { Observable, BehaviorSubject, combineLatest, empty } from 'rxjs';
-import { debounceTime, map, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, map, distinctUntilChanged, switchMap, tap, shareReplay, pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-group-list',
@@ -25,15 +25,16 @@ export class GroupListComponent implements OnInit {
   filterTerm$ = new BehaviorSubject('');
   pageIndex$ = new BehaviorSubject(1);
   pageSize$ = new BehaviorSubject(10);
-  sortBy$ = new BehaviorSubject(1);
+  sortBy$ = new BehaviorSubject(['name', 'acs']);
 
-  filteredGroupData: Observable<any>;
+  filteredGroupData: Observable<Group[]>;
+  total$: Observable<number>;
 
-  constructor() { }
+  constructor(private groupService: GroupsService) { }
 
   ngOnInit() {
 
-    this.filteredGroupData = combineLatest(
+    const intermediate$ = combineLatest(
       this.filterTerm$.pipe(
         debounceTime(200),
         distinctUntilChanged()
@@ -42,12 +43,23 @@ export class GroupListComponent implements OnInit {
       this.pageSize$,
       this.sortBy$
       ).pipe(
+        tap(() => {this.loading = true}),
         switchMap(
           ([filterTerm, pageIdx, pageSz, sortBy]) => {
-            return empty();
+            return this.groupService.getGroups(filterTerm, pageIdx, pageSz, sortBy);
           }
-        )
-      )
+        ),
+        shareReplay(),
+        tap(() => {this.loading = false}),
+      );
+
+    this.filteredGroupData = intermediate$.pipe(
+      pluck('groups')
+    );
+
+    this.total$ = intermediate$.pipe(
+      pluck('total')
+    );
   }
 
 }

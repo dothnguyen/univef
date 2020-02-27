@@ -7,9 +7,9 @@
       #ajaxTable
       nzShowSizeChanger
       [nzFrontPagination]="false"
-      [nzData]="listOfData"
+      [nzData]="filteredGroupData|async"
       [nzLoading]="loading"
-      [nzTotal]="total"
+      [nzTotal]="total$|async"
       [(nzPageIndex)]="pageIndex"
       [(nzPageSize)]="pageSize"
       (nzPageIndexChange)="searchData()"
