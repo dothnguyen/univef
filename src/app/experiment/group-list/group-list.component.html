@@ -1,0 +1,31 @@
+<div nz-row>
+<div nz-col nzSpan="4">
+  <input type="text" nz-input />
+</div>
+</div>
+<nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      [nzFrontPagination]="false"
+      [nzData]="listOfData"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData()"
+      (nzPageSizeChange)="searchData(true)"
+    >
+      <thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+          <th nzShowSort nzSortKey="group_code">Group Code</th>
+          <th nzShowSort nzSortKey="name">Group Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data">
+          <td>{{ data.group_code }}</td>
+          <td>{{ data.name }}</td>
+
+        </tr>
+      </tbody>
+    </nz-table>

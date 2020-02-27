@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { finalize, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-sidemenu',
@@ -9,73 +12,31 @@ import { Router } from '@angular/router';
 export class SidemenuComponent implements OnInit {
   menuData: any[];
 
-  @Input('isCollapse') isCollapsed = true;
+  menuData$: Observable<any>;
 
-  constructor(private router: Router) {
-    router.events.subscribe(val => {
-      this.checkMenuCollapse();
-    });
+  @Input('isCollapse') isCollapsed: boolean;
+
+  constructor(private router: Router, private http: HttpClient) {
+
   }
 
   ngOnInit() {
-    this.menuData = [
-      {
-        name: 'Home',
-        url: '/welcome'
-      },
-      {
-        name: 'Experiment',
-        open: false,
-        items: [
-          {
-            name: 'Maps',
-            url: '/experiment/maps'
-          },
-          {
-            name: 'Dynamic Forms',
-            url: '/experiment/dynamic-form'
-          }
-        ]
-      },
-      {
-        name: 'Groups',
-        url: '/super-admin/groups'
-      },
-      {
-        name: 'User Management',
-        open: false,
-        items: [
-          {
-            name: 'Users',
-            url: '/super-admin/users'
-          }
-        ]
-      },
-      {
-        name: 'System Settings',
-        open: false,
-        items: [
-          {
-            name: 'System Settings',
-            url: '/super-admin/system-settings'
-          }
-        ]
-      }
-    ];
+    this.menuData$ = this.http.get("http://localhost:3000/side-menu").pipe(
+      map((data: any) => {
 
-    this.checkMenuCollapse();
-  }
+        const parentItems = data.filter(
+          i => i.items && i.items.length > 0
+        );
+        for(let parent of parentItems) {
+          const match = parent.items.filter(i => i.url === this.router.url);
+          if (match && match.length > 0) {
+            parent.open = true;
+            break;
+          }
+        }
 
-  checkMenuCollapse() {
-    const parentItems = this.menuData.filter(
-      i => i.items && i.items.length > 0
+        return data;
+      }),
     );
-    parentItems.forEach(parent => {
-      const match = parent.items.filter(i => i.url === this.router.url);
-      if (match && match.length > 0) {
-        parent.open = true;
-        return;
-      }
-    });
   }
 }

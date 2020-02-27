@@ -6,15 +6,12 @@ import { Component, ViewChild, ViewContainerRef, AfterViewInit } from '@angular/
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
-  isCollapsed = true;
+  isCollapsed = false;
 
   constructor() {}
 
   ngAfterViewInit() {
-    //this.isCollapsed = false;
-    setTimeout(()=> {
-      this.isCollapsed = false;
-    }, 50);
+
   }
 
   reloadMenu() {

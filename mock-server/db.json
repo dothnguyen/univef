@@ -1,8 +1,272 @@
 {
   "groups": [
     {
-      "name": "some name",
+      "name": "The master group - system admin and all",
+      "group_code": "0000",
       "id": 1
+    },
+    {
+      "name": "Custom group 1 - And independent group with its own structure and users",
+      "group_code": "1001",
+      "id": 2
+    },
+    {
+      "name": "Custom group 2 - And independent group with its own structure and users",
+      "group_code": "1002",
+      "id": 3
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 4
+    },
+    {
+      "name": "Custom group 4 - And independent group with its own structure and users",
+      "group_code": "1004",
+      "id": 5
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 6
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 7
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 8
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 9
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 10
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 11
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 12
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 13
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 14
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 15
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 16
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 17
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 18
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 19
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 20
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 21
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 22
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 23
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 24
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 25
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 26
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 27
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 28
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 29
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 30
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 31
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 32
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 33
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 34
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 35
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 36
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 37
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 38
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 39
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 40
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 41
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 42
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 43
+    },
+    {
+      "name": "Custom group 3 - And independent group with its own structure and users",
+      "group_code": "1003",
+      "id": 44
+    }
+  ],
+  "side-menu": [
+    {
+      "name": "Home",
+      "url": "/welcome"
+    },
+    {
+      "name": "Experiment",
+      "open": false,
+      "items": [
+        {
+          "name": "Maps",
+          "url": "/experiment/maps"
+        },
+        {
+          "name": "Dynamic Forms",
+          "url": "/experiment/dynamic-form"
+        },
+        {
+          "name": "Groups",
+          "url": "/experiment/groups"
+        }
+      ]
+    },
+    {
+      "name": "Groups",
+      "url": "/super-admin/groups"
+    },
+    {
+      "name": "User Management",
+      "open": false,
+      "items": [
+        {
+          "name": "Users",
+          "url": "/super-admin/users"
+        }
+      ]
+    },
+    {
+      "name": "System Settings",
+      "open": false,
+      "items": [
+        {
+          "name": "System Settings",
+          "url": "/super-admin/system-settings"
+        }
+      ]
     }
   ]
 }
