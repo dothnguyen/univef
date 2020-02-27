@@ -15,7 +15,21 @@ export class DynamicFormComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
+    if (!this.formDef) {
+      this.formDef = {
+        id: 1,
+        title: 'Wayne Test first form',
+        fields: [
+          {
+            id: 1,
+            label: 'First field',
+            type: 1, // short text,
+            validations: []
+          }
+        ],
+        fieldMappings: []
+      };
+    }
   }
 
 }

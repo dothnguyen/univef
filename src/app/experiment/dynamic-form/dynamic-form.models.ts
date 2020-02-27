@@ -1,14 +1,16 @@
 // definition model of dynamic form
 export class FormDef {
-
-        title: string;
-        fields: FormFieldDef[];
-        fieldMappings: FieldOptionMapping[];
+        public id: number;
+        public title: string;
+        public fields: FormFieldDef[];
+        public fieldMappings?: FieldOptionMapping[];
 }
 
 export class FormFieldDef {
-        label: string;
-        type: number;
+        public id: number;
+        public label: string;
+        public type: number;
+        public validations?: any[];
 }
 
 export class FieldOptionDef {
@@ -17,5 +19,9 @@ export class FieldOptionDef {
 }
 
 export class FieldOptionMapping {
-
+        fieldId: number;
+        optionId: number;
+        childFieldId: number;
 }
+
+

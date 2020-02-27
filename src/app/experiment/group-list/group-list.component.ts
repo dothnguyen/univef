@@ -10,56 +10,93 @@ import { debounceTime, map, distinctUntilChanged, switchMap, tap, shareReplay, p
 })
 export class GroupListComponent implements OnInit {
 
-  pageIndex = 1;
-  pageSize = 10;
-  total = 1;
-  listOfData: Group[] = [];
   loading = true;
-  sortValue: string | null = null;
-  sortKey: string | null = null;
-  filterGender = [{ text: 'male', value: 'male' }, { text: 'female', value: 'female' }];
-  searchGenderList: string[] = [];
-
 
   // source streams
+  // stream of filter terms
   filterTerm$ = new BehaviorSubject('');
+  // stream of page Index changes
   pageIndex$ = new BehaviorSubject(1);
+  // stream of page size changes
   pageSize$ = new BehaviorSubject(10);
-  sortBy$ = new BehaviorSubject(['name', 'acs']);
+  // stream of sort changes
+  sortBy$ = new BehaviorSubject(['group_code', 'ascend']);
 
+  // presentational streams
+  // stream of filtered data
   filteredGroupData: Observable<Group[]>;
+  // total number of filtered data
   total$: Observable<number>;
+  // holds current sort values for each columns
+  currentSort$: Observable<any>;
 
   constructor(private groupService: GroupsService) { }
 
   ngOnInit() {
 
+    // an intermediate stream that combine all the sources
+    // then create a http request
+    // and share the response for further process
     const intermediate$ = combineLatest(
       this.filterTerm$.pipe(
-        debounceTime(200),
+        debounceTime(500),
         distinctUntilChanged()
       ),
       this.pageIndex$,
       this.pageSize$,
       this.sortBy$
       ).pipe(
-        tap(() => {this.loading = true}),
+        tap(() => {this.loading = true; }),  // show loading
         switchMap(
           ([filterTerm, pageIdx, pageSz, sortBy]) => {
             return this.groupService.getGroups(filterTerm, pageIdx, pageSz, sortBy);
           }
         ),
         shareReplay(),
-        tap(() => {this.loading = false}),
+        tap((val) => {
+          this.loading = false;   // hide loading
+        }),
       );
 
+    // get only groups data from the response
     this.filteredGroupData = intermediate$.pipe(
       pluck('groups')
     );
 
+    // get only the total number from the response
     this.total$ = intermediate$.pipe(
       pluck('total')
     );
+
+    // convert sort values to object for deciding sorting in template
+    this.currentSort$ = this.sortBy$.pipe(
+      map(sort => {
+        const ret = {
+          name: null,
+          group_code: null
+        };
+
+        ret[sort[0]] = sort[1];
+
+        return ret;
+      })
+    );
+
   }
 
+  onChangePageIndex(pageIndex) {
+    this.pageIndex$.next(pageIndex);
+  }
+
+  onChangePageSize(pageSize) {
+    this.pageSize$.next(pageSize);
+  }
+
+  sort($event) {
+    this.sortBy$.next([$event.key, $event.value]);
+  }
+
+  searchTermChange($event) {
+    this.filterTerm$.next($event.target.value);
+  }
 }

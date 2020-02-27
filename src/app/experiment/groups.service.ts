@@ -20,13 +20,13 @@ export class GroupsService {
     .set('_page', pageIndex.toString())
     .set('_limit', pageSize.toString())
     .set('_sort', sortBy[0])
-    .set('_order', sortBy[1])
+    .set('_order', sortBy[1] === 'ascend' ? 'asc' : (sortBy[1] === 'descend' ? 'desc' : ''));
 
     return this.http.get('http://localhost:3000/groups', {params: params, observe: 'response' as 'body'})
               .pipe(
                 map((resp: HttpResponse<any>) => {
                   return {
-                    total: resp.headers['X-Total-Count'],
+                    total: resp.headers.get('X-Total-Count'),
                     groups: resp.body
                   }
                 })

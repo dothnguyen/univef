@@ -1,8 +1,9 @@
 <div nz-row>
 <div nz-col nzSpan="4">
-  <input type="text" nz-input />
+  <input type="text" nz-input (keyup)="searchTermChange($event)"/>
 </div>
 </div>
+<div *ngIf="(currentSort$ | async) || {}; let currentSort">
 <nz-table
       #ajaxTable
       nzShowSizeChanger
@@ -10,22 +11,22 @@
       [nzData]="filteredGroupData|async"
       [nzLoading]="loading"
       [nzTotal]="total$|async"
-      [(nzPageIndex)]="pageIndex"
-      [(nzPageSize)]="pageSize"
-      (nzPageIndexChange)="searchData()"
-      (nzPageSizeChange)="searchData(true)"
+      [nzPageIndex]="pageIndex$|async"
+      [nzPageSize]="pageSize$|async"
+      (nzPageIndexChange)="onChangePageIndex($event)"
+      (nzPageSizeChange)="onChangePageSize($event)"
     >
       <thead (nzSortChange)="sort($event)" nzSingleSort>
         <tr>
-          <th nzShowSort nzSortKey="group_code">Group Code</th>
-          <th nzShowSort nzSortKey="name">Group Name</th>
+          <th nzShowSort nzSortKey="group_code" [nzSort]="currentSort.group_code">Group Code</th>
+          <th nzShowSort nzSortKey="name" [nzSort]="currentSort.name">Group Name</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of ajaxTable.data">
           <td>{{ data.group_code }}</td>
           <td>{{ data.name }}</td>
-
         </tr>
       </tbody>
     </nz-table>
+  </div>
