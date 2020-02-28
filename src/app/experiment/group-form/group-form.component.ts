@@ -23,7 +23,15 @@ export class GroupFormComponent implements OnInit {
     this.groupForm = this.fb.group({
       group_code:['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(4)])],
       name: ['', Validators.required]
-    })
+    });
+  }
+
+  get group_code() {
+    return this.groupForm.get('group_code');
+  }
+
+  get name() {
+    return this.groupForm.get('name');
   }
 
   saveGroup(value) {

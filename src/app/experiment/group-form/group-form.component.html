@@ -2,8 +2,9 @@
   <form nz-form nzLayout="'vertical'" [formGroup]="groupForm" (ngSubmit)="saveGroup(groupForm.value)">
     <nz-form-item>
       <nz-form-label nzSpan="24" nzFor="group_code">Group Code</nz-form-label>
-      <nz-form-control nzSpan="8" [nzErrorTip]="groupForm.group_code.invalid ? ('groupForm.group_code.errors') : ''">
-        <input nz-input formControlName="group_code" placeholder="Group Code" />
+      <nz-form-control nzSpan="8"
+      [nzErrorTip]="group_code.invalid ? (group_code.errors.required? 'Please enter group code.': ((group_code.errors.minlength || group_code.errors.maxlength)? 'Please enter 4 characters': '')): ''">
+        <input nz-input formControlName="group_code" placeholder="Group Code"/>
       </nz-form-control>
     </nz-form-item>
 
