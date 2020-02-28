@@ -7,11 +7,14 @@ import { MapExperimentComponent } from './pages/map-experiment/map-experiment.co
 import { GroupListComponent } from './group-list/group-list.component';
 import { GroupsExperimentComponent } from './pages/groups-experiment/groups-experiment.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { GroupFormComponent } from './group-form/group-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     NgZorroAntdModule,
+    ReactiveFormsModule,
     ExperimentRoutingModule
   ],
   declarations: [
@@ -19,14 +22,19 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
     DynamicFormComponent,
     MapExperimentComponent,
     GroupsExperimentComponent,
-    GroupListComponent
+    GroupListComponent,
+    GroupFormComponent
   ],
   exports: [
     MapComponent,
     DynamicFormComponent,
     MapExperimentComponent,
     GroupsExperimentComponent,
-    GroupListComponent
+    GroupListComponent,
+    GroupFormComponent
+  ],
+  entryComponents: [
+    GroupFormComponent
   ]
 })
 export class ExperimentModule { }

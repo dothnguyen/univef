@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
+import { Group } from '../../groups.service';
+import { NzModalService } from 'ng-zorro-antd';
+import { GroupFormComponent, GroupFromModalService } from '../../group-form/group-form.component';
 
 @Component({
   selector: 'app-groups-experiment',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GroupsExperimentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private factoryResolver: ComponentFactoryResolver,
+          private viewContainerRef: ViewContainerRef,
+          private groupModalService: GroupFromModalService) {
+    this.groupModalService.setRootViewContainerRef(viewContainerRef);
+  }
 
   ngOnInit() {
   }
 
+  showGroupModal(group: Group) {
+    this.groupModalService.showGroupFormModal();
+  }
 }

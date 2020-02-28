@@ -1,0 +1,20 @@
+<div>
+  <form nz-form nzLayout="'vertical'" [formGroup]="groupForm" (ngSubmit)="saveGroup(groupForm.value)">
+    <nz-form-item>
+      <nz-form-label nzSpan="24" nzFor="group_code">Group Code</nz-form-label>
+      <nz-form-control nzSpan="8" [nzErrorTip]="groupForm.group_code.invalid ? ('groupForm.group_code.errors') : ''">
+        <input nz-input formControlName="group_code" placeholder="Group Code" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="name">Group Name</nz-form-label>
+      <nz-form-control nzErrorTip="Please enter group name!">
+        <input nz-input formControlName="name" placeholder="Group Name" />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+<div *nzModalFooter>
+  <button nz-button nzType='primary' (click)="saveGroup(groupForm.value)" [disabled]="!groupForm.valid">Save</button>
+</div>
