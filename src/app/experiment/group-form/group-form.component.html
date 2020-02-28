@@ -2,15 +2,15 @@
   <form nz-form nzLayout="'vertical'" [formGroup]="groupForm" (ngSubmit)="saveGroup(groupForm.value)">
     <nz-form-item>
       <nz-form-label nzSpan="24" nzFor="group_code">Group Code</nz-form-label>
-      <nz-form-control nzSpan="8"
-      [nzErrorTip]="group_code.invalid ? (group_code.errors.required? 'Please enter group code.': ((group_code.errors.minlength || group_code.errors.maxlength)? 'Please enter 4 characters': '')): ''">
+      <nz-form-control nzSpan="8" nzHasFeedback nzValidatingTip="Validating..."
+      [nzErrorTip]="groupCodeError">
         <input nz-input formControlName="group_code" placeholder="Group Code"/>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-label nzFor="name">Group Name</nz-form-label>
-      <nz-form-control nzErrorTip="Please enter group name!">
+      <nz-form-control nzHasFeedback nzErrorTip="Please enter group name!">
         <input nz-input formControlName="name" placeholder="Group Name" />
       </nz-form-control>
     </nz-form-item>
@@ -19,3 +19,9 @@
 <div *nzModalFooter>
   <button nz-button nzType='primary' (click)="saveGroup(groupForm.value)" [disabled]="!groupForm.valid">Save</button>
 </div>
+
+<ng-template #groupCodeError>
+  <span *ngIf="group_code.invalid && group_code.errors.required">Please enter group code.</span>
+  <span *ngIf="group_code.invalid && (group_code.errors.minlength || group_code.errors.maxlength)">Please enter 4 characters</span>
+  <span *ngIf="group_code.invalid && group_code.errors.duplicated">Group code already exists.</span>
+</ng-template>

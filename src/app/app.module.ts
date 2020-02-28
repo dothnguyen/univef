@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 
 import { IconsProviderModule } from './icons-provider.module';
-import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
+import { NgZorroAntdModule, NZ_I18N, en_US, NzConfig, NZ_CONFIG } from 'ng-zorro-antd';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +16,12 @@ import en from '@angular/common/locales/en';
 import { ExperimentModule } from './experiment/experiment.module';
 
 registerLocaleData(en);
+
+const ngZorroConfig: NzConfig = {
+  message: { nzTop: 120 },
+  notification: { nzTop: 240 },
+  
+};
 
 @NgModule({
   declarations: [
@@ -32,7 +38,7 @@ registerLocaleData(en);
     SharedModule,
     ExperimentModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ provide: NZ_CONFIG, useValue: ngZorroConfig }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

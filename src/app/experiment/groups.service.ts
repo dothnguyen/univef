@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, from } from 'rxjs';
+import { map, filter, count, delay, tap, flatMap } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class GroupsService {
 
 
   getGroups(searchTerm: string, pageIndex: number, pageSize: number, sortBy: any[]): Observable<any> {
-    var params = new HttpParams().set('q', searchTerm)
+    const params = new HttpParams().set('q', searchTerm)
     .set('_page', pageIndex.toString())
     .set('_limit', pageSize.toString())
     .set('_sort', sortBy[0])
@@ -31,6 +32,30 @@ export class GroupsService {
                   }
                 })
               );
+  }
+
+  checkUniqueGroupCode(code: string, id: number = null) {
+    const params = new HttpParams()
+                .set('group_code', code);
+
+    return this.http.get('http://localhost:3000/groups', {params})
+                    .pipe(
+                      flatMap((groups: Group[]) => from(groups)),  // convert the result to stream of array
+                      filter((group: Group) => {                   // filter out the one that has same id
+                        return !id || (id && group.id !== id);
+                      }),
+                      count(),                                    // count number of existing code
+                      delay(2000),   // TODO for testing
+                      map(c => c > 0 ? {error: true, duplicated: true} : null),   // map to error or not
+                    );
+  }
+
+  addGroup(group: Group) {
+    return this.http.post('http://localhost:3000/groups', group);
+  }
+
+  updateGroup(group: Group) {
+    return this.http.put('http://localhost:3000/groups', group);
   }
 
 }

@@ -219,6 +219,26 @@
       "name": "Custom group 43 - And independent group with its own structure and users",
       "group_code": "1033",
       "id": 44
+    },
+    {
+      "group_code": "2001",
+      "name": "Testing new group",
+      "id": 45
+    },
+    {
+      "group_code": "2002",
+      "name": "Testing add another group",
+      "id": 46
+    },
+    {
+      "group_code": "2003",
+      "name": "Test yet another group ....",
+      "id": 47
+    },
+    {
+      "group_code": "2005",
+      "name": "Testing yet another group 54",
+      "id": 48
     }
   ],
   "side-menu": [
