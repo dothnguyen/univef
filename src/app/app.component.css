@@ -58,7 +58,7 @@
 nz-header {
   padding: 0;
   width: 100%;
-  z-index: 1001;
+  z-index: 1000;
 }
 
 .app-header {
@@ -104,5 +104,6 @@ nz-footer {
   width: 100%;
   text-align: center;
   padding: 18px;
+  z-index: 1000;
 }
 

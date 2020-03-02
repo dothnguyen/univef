@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~leaflet/dist/leaflet.css";
 
-nz-modal .modal-large {
-  width: 80% !important;
+
+.leaflet-top, .leaflet-bottom {
+  z-index: 999;
 }
+

@@ -38,7 +38,7 @@ const ngZorroConfig: NzConfig = {
     SharedModule,
     ExperimentModule
   ],
-  providers: [{ provide: NZ_CONFIG, useValue: ngZorroConfig }],
+  providers: [{ provide: NZ_CONFIG, useValue: ngZorroConfig },{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

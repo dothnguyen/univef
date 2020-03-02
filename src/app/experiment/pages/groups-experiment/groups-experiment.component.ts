@@ -25,8 +25,6 @@ export class GroupsExperimentComponent implements OnInit {
 
   showGroupModal(group: Group) {
 
-    console.log(group);
-
     // this.groupModalService.showGroupFormModal(group);
     const modal = this.modalService.create({
       nzContent: GroupFormComponent,
@@ -34,7 +32,8 @@ export class GroupsExperimentComponent implements OnInit {
       nzWidth: 800,
       nzComponentParams: {
         group
-      }
+      },
+      // nzNoAnimation: true
     });
 
     modal.afterOpen.subscribe(() => {
