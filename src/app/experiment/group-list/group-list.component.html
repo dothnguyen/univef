@@ -20,12 +20,14 @@
         <tr>
           <th nzShowSort nzSortKey="group_code" [nzSort]="currentSort.group_code">Group Code</th>
           <th nzShowSort nzSortKey="name" [nzSort]="currentSort.name">Group Name</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of ajaxTable.data">
           <td>{{ data.group_code }}</td>
           <td>{{ data.name }}</td>
+          <td><button nz-button nzType="link" nz-tooltip nzTooltipTitle="Edit group information" (click)="editGroup(data)"><i nz-icon nzType="edit"></i></button></td>
         </tr>
       </tbody>
     </nz-table>

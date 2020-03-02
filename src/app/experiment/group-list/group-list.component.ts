@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Group, GroupsService } from '../groups.service';
 import { Observable, BehaviorSubject, combineLatest, empty } from 'rxjs';
 import { debounceTime, map, distinctUntilChanged, switchMap, tap, shareReplay, pluck } from 'rxjs/operators';
 import { FormControl, ValidationErrors } from '@angular/forms';
+
 
 @Component({
   selector: 'app-group-list',
@@ -10,6 +11,8 @@ import { FormControl, ValidationErrors } from '@angular/forms';
   styleUrls: ['./group-list.component.css']
 })
 export class GroupListComponent implements OnInit {
+
+  @Output('editGroup') editGroupEvent = new EventEmitter<Group>();
 
   loading = true;
 
@@ -99,5 +102,10 @@ export class GroupListComponent implements OnInit {
 
   searchTermChange($event) {
     this.filterTerm$.next($event.target.value);
+  }
+
+  // edit group info
+  editGroup(group) {
+    this.editGroupEvent.emit(group);
   }
 }

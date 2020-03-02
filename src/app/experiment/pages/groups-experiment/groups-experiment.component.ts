@@ -24,6 +24,9 @@ export class GroupsExperimentComponent implements OnInit {
   }
 
   showGroupModal(group: Group) {
+
+    console.log(group);
+
     // this.groupModalService.showGroupFormModal(group);
     const modal = this.modalService.create({
       nzContent: GroupFormComponent,
@@ -47,10 +50,11 @@ export class GroupsExperimentComponent implements OnInit {
       );
 
       const sub = save$.subscribe(ret => {
-
         this.message.success('Group saved.', { nzDuration: 2500 });
         modal.close();
         sub.unsubscribe();
+
+        // TODO reload table
       });
     });
   }

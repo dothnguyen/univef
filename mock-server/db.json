@@ -1,8 +1,8 @@
 {
   "groups": [
     {
-      "name": "The master group - system admin and all",
       "group_code": "0000",
+      "name": "The master group - system admin and all - Test modify",
       "id": 1
     },
     {
@@ -256,7 +256,7 @@
         },
         {
           "name": "Dynamic Forms",
-          "url": "/experiment/dynamic-form"
+          "url": "/experiment/forms"
         },
         {
           "name": "Groups",

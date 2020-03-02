@@ -33,6 +33,13 @@ export class GroupFormComponent implements OnInit {
           [this.groupCodeUniquevalidator]],
       name: ['', Validators.required]
     });
+
+    if (this.group) {
+      this.groupForm.get('group_code').setValue(this.group.group_code);
+      this.groupForm.get('name').setValue(this.group.name);
+
+      this.groupForm.updateValueAndValidity();
+    }
   }
 
   get group_code() {
@@ -68,7 +75,7 @@ export class GroupFormComponent implements OnInit {
   }
 
   // validator to validate unique group code
-  groupCodeUniquevalidator = (control: FormControl) => this.groupService.checkUniqueGroupCode(control.value);
+  groupCodeUniquevalidator = (control: FormControl) => this.groupService.checkUniqueGroupCode(control.value, this.group? this.group.id : null);
 
 }
 

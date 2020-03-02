@@ -1,3 +1,11 @@
-<p>
-  dynamic-form works!
-</p>
+<form [formGroup]="dynamicForm">
+<ng-container *ngFor="let f of formDef.fields">
+<nz-form-item>
+  <nz-form-label *ngIf="f.required" nzRequired [nzFor]="'field_' + f.id">{{ f.label }}</nz-form-label>
+  <nz-form-label *ngIf="!f.required" [nzFor]="'field_' + f.id">{{ f.label }}</nz-form-label>
+  <nz-form-control>
+    <input nz-input type="text" [formControlName]="'field_' + f.id ">
+  </nz-form-control>
+</nz-form-item>
+</ng-container>
+</form>

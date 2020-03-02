@@ -30,7 +30,8 @@ export class GroupsService {
                     total: resp.headers.get('X-Total-Count'),
                     groups: resp.body
                   }
-                })
+                }),
+                delay(1000)
               );
   }
 
@@ -45,7 +46,7 @@ export class GroupsService {
                         return !id || (id && group.id !== id);
                       }),
                       count(),                                    // count number of existing code
-                      delay(2000),   // TODO for testing
+                      //delay(2000),   // TODO for testing
                       map(c => c > 0 ? {error: true, duplicated: true} : null),   // map to error or not
                     );
   }
@@ -55,7 +56,7 @@ export class GroupsService {
   }
 
   updateGroup(group: Group) {
-    return this.http.put('http://localhost:3000/groups', group);
+    return this.http.put('http://localhost:3000/groups/' + group.id, group);
   }
 
 }

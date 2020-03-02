@@ -10,7 +10,10 @@ export class FormFieldDef {
         public id: number;
         public label: string;
         public type: number;
+        public required?: boolean = false;
         public validations?: any[];
+        public show?: boolean = true;
+        public options?: FieldOptionDef[];
 }
 
 export class FieldOptionDef {
@@ -19,8 +22,8 @@ export class FieldOptionDef {
 }
 
 export class FieldOptionMapping {
-        fieldId: number;
-        optionId: number;
+        parentFieldId: number;
+        parentOptionId: number;
         childFieldId: number;
 }
 
