@@ -23,38 +23,5 @@ export class GroupsExperimentComponent implements OnInit {
   ngOnInit() {
   }
 
-  showGroupModal(group: Group) {
 
-    // this.groupModalService.showGroupFormModal(group);
-    const modal = this.modalService.create({
-      nzContent: GroupFormComponent,
-      nzTitle: 'Add / Edit Group Information',
-      nzWidth: 800,
-      nzComponentParams: {
-        group
-      },
-      // nzNoAnimation: true
-    });
-
-    modal.afterOpen.subscribe(() => {
-      const comp = modal.getContentComponent();
-      const save$ = comp.saveGroup$.pipe(
-        switchMap(grp => {
-          if (grp.id) {
-            return this.groupService.updateGroup(grp);
-          } else {
-            return this.groupService.addGroup(grp);
-          }
-        })
-      );
-
-      const sub = save$.subscribe(ret => {
-        this.message.success('Group saved.', { nzDuration: 2500 });
-        modal.close();
-        sub.unsubscribe();
-
-        // TODO reload table
-      });
-    });
-  }
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Group, GroupsService } from '../groups.service';
-import { Observable, BehaviorSubject, combineLatest, empty } from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest, empty, Subject } from 'rxjs';
 import { debounceTime, map, distinctUntilChanged, switchMap, tap, shareReplay, pluck } from 'rxjs/operators';
 import { FormControl, ValidationErrors } from '@angular/forms';
+import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import { GroupFormComponent } from '../group-form/group-form.component';
 
 
 @Component({
@@ -12,7 +14,7 @@ import { FormControl, ValidationErrors } from '@angular/forms';
 })
 export class GroupListComponent implements OnInit {
 
-  @Output('editGroup') editGroupEvent = new EventEmitter<Group>();
+  //@Output('editGroup') editGroupEvent = new EventEmitter<Group>();
 
   loading = true;
 
@@ -26,6 +28,8 @@ export class GroupListComponent implements OnInit {
   // stream of sort changes
   sortBy$ = new BehaviorSubject(['group_code', 'ascend']);
 
+  reloadList$ = new BehaviorSubject('');
+
   // presentational streams
   // stream of filtered data
   filteredGroupData: Observable<Group[]>;
@@ -34,7 +38,9 @@ export class GroupListComponent implements OnInit {
   // holds current sort values for each columns
   currentSort$: Observable<any>;
 
-  constructor(private groupService: GroupsService) { }
+  constructor(private groupService: GroupsService,
+    private modalService: NzModalService,
+    private message: NzMessageService) { }
 
   ngOnInit() {
 
@@ -48,7 +54,8 @@ export class GroupListComponent implements OnInit {
       ),
       this.pageIndex$,
       this.pageSize$,
-      this.sortBy$
+      this.sortBy$,
+      this.reloadList$
       ).pipe(
         tap(() => {this.loading = true; }),  // show loading
         switchMap(
@@ -104,8 +111,44 @@ export class GroupListComponent implements OnInit {
     this.filterTerm$.next($event.target.value);
   }
 
-  // edit group info
+  showGroupModal(group: Group) {
+
+    // this.groupModalService.showGroupFormModal(group);
+    const modal = this.modalService.create({
+      nzContent: GroupFormComponent,
+      nzTitle: 'Add / Edit Group Information',
+      nzWidth: 800,
+      nzComponentParams: {
+        group
+      },
+      // nzNoAnimation: true
+    });
+
+    modal.afterOpen.subscribe(() => {
+      const comp = modal.getContentComponent();
+      const save$ = comp.saveGroup$.pipe(
+        switchMap(grp => {
+          if (grp.id) {
+            return this.groupService.updateGroup(grp);
+          } else {
+            return this.groupService.addGroup(grp);
+          }
+        })
+      );
+
+      const sub = save$.subscribe(ret => {
+        this.message.success('Group saved.', { nzDuration: 2500 });
+        modal.close();
+        sub.unsubscribe();
+
+        // reload table
+        this.reloadList$.next('');
+      });
+    });
+  }
+
+  // // edit group info
   editGroup(group) {
-    this.editGroupEvent.emit(group);
+    this.showGroupModal(group);
   }
 }
