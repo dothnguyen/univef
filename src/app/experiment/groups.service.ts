@@ -59,6 +59,13 @@ export class GroupsService {
     return this.http.put('http://localhost:3000/groups/' + group.id, group);
   }
 
+  getGroup(id: number) {
+    return this.http.get('http://localhost:3000/groups/' + id)
+                    .pipe(
+                      map(obj => obj as Group)
+                    );
+  }
+
 }
 
 

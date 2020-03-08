@@ -10,6 +10,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { GroupFormComponent } from './group-form/group-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormExperimentComponent } from './pages/form-experiment/form-experiment.component';
+import { GroupSettingsComponent } from './group-settings/group-settings.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { FormExperimentComponent } from './pages/form-experiment/form-experiment
     GroupsExperimentComponent,
     GroupListComponent,
     GroupFormComponent,
-    FormExperimentComponent
+    FormExperimentComponent,
+    GroupSettingsComponent
   ],
   exports: [
     MapComponent,
