@@ -260,7 +260,7 @@
         },
         {
           "name": "Groups",
-          "url": "/experiment/groups"
+          "url": "^/experiment/groups[/?]"
         }
       ]
     },

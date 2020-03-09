@@ -27,11 +27,20 @@ export class SidemenuComponent implements OnInit {
         const parentItems = data.filter(
           i => i.items && i.items.length > 0
         );
-        for(let parent of parentItems) {
-          const match = parent.items.filter(i => i.url === this.router.url);
+
+        parentItems.map(i => i.selected = false);
+
+        for (const parent of parentItems) {
+
+          parent.items.map(i => i.selected = false);
+
+          const match = parent.items.filter(i => {
+            const reg = new RegExp(i.url);
+            return reg.test(this.router.url);
+          });
           if (match && match.length > 0) {
+            match.map(i => i.selected = true);
             parent.open = true;
-            break;
           }
         }
 
