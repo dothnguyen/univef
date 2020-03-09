@@ -4,8 +4,8 @@ import { GroupsComponent } from './pages/groups/groups.component';
 
 
 const routes: Routes = [
-  { path: '', component: GroupsComponent },
-  { path: 'groups', component: GroupsComponent },
+  { path: '', redirectTo: 'groups', pathMatch: 'full' },
+  { path: 'groups', component: GroupsComponent, data: {breadcrumb: 'Groups', skip: false} },
 ];
 
 @NgModule({

@@ -11,6 +11,7 @@ import { GroupFormComponent } from './group-form/group-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormExperimentComponent } from './pages/form-experiment/form-experiment.component';
 import { GroupSettingsComponent } from './group-settings/group-settings.component';
+import { ExperimentComponent } from './pages/experiment/experiment.component';
 
 @NgModule({
   imports: [
@@ -27,13 +28,15 @@ import { GroupSettingsComponent } from './group-settings/group-settings.componen
     GroupListComponent,
     GroupFormComponent,
     FormExperimentComponent,
-    GroupSettingsComponent
+    GroupSettingsComponent,
+    ExperimentComponent
   ],
   exports: [
     MapComponent,
     DynamicFormComponent,
     GroupListComponent,
     GroupFormComponent,
+    ExperimentComponent
   ],
   entryComponents: [
     GroupFormComponent

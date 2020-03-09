@@ -14,18 +14,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { ExperimentModule } from './experiment/experiment.module';
+import { HomeComponent } from './pages/home/home.component';
 
 registerLocaleData(en);
 
 const ngZorroConfig: NzConfig = {
   message: { nzTop: 120 },
   notification: { nzTop: 240 },
-  
 };
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

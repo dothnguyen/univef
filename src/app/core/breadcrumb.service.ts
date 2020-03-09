@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Router, PRIMARY_OUTLET, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
+import { Router, PRIMARY_OUTLET, NavigationEnd, ActivatedRoute, ActivationEnd } from '@angular/router';
+import { filter, map, pluck, buffer, distinctUntilChanged } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 
 @Injectable({
@@ -41,33 +41,49 @@ export class BreadcrumbService {
 
     // });
 
+    // this.router.events
+    // .pipe(filter(event => event instanceof NavigationEnd))
+    // .subscribe(() => this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root));
+
+    const navigationEnd$ = this.router.events.pipe(
+      filter(evt => evt instanceof NavigationEnd)
+    );
+
     this.router.events
-    .pipe(filter(event => event instanceof NavigationEnd))
-    .subscribe(() => this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root));
+      .pipe(
+        filter(evt => evt instanceof ActivationEnd),
+        pluck('snapshot'),
+        buffer(navigationEnd$),
+        map((bcData: any[]) => bcData.reverse()),
+      ).subscribe(data => {
+
+        this.breadcrumbs = [];
+
+        const urls = [];
+
+        for(const snap of data) {
+
+          const url = snap.url;
+          const label = snap.data.breadcrumb;
+          const skip = snap.data.skip;
+
+          if (!skip) {
+
+            urls.push(...url);
+
+            this.breadcrumbs.push({
+              label,
+              url: urls.join('/')
+            });
+          }
+
+          this.breadcrumbs = this.breadcrumbs.filter((item, index) => this.breadcrumbs.indexOf(item) >= index);
+        }
+
+        console.log(this.breadcrumbs);
+      });
   }
 
   breadcrumbs = [];
-
-  private createBreadcrumbs(route: ActivatedRoute, url: string = '#', breadcrumbs: any[] = []): any[] {
-    const children: ActivatedRoute[] = route.children;
-
-    if (children.length === 0) {
-      return breadcrumbs;
-    }
-
-    for (const child of children) {
-      const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
-      if (routeURL !== '') {
-        url += `/${routeURL}`;
-      }
-
-      const label = child.snapshot.data['breadcrumb'];
-      if (!isNullOrUndefined(label)) {
-        breadcrumbs.push({label, url});
-      }
-
-      return this.createBreadcrumbs(child, url, breadcrumbs);
-    }
-  }
 
 }
