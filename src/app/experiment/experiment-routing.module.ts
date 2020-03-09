@@ -9,14 +9,17 @@ import { GroupSettingsComponent } from './group-settings/group-settings.componen
 
 
 const routes: Routes = [
-  { path: '', component: MapExperimentComponent, data: {breadcrumb: 'Maps'}},
-  { path: 'maps', component: MapExperimentComponent, data: {breadcrumb: 'Maps'} },
-  { path: 'groups', component: GroupsExperimentComponent, data: {breadcrumb: 'Groups'} },
-  {
-    path: 'groups/:id/settings',
-    component: GroupSettingsComponent, data: {breadcrumb: 'Group Settings'}
-  },
-  { path: 'forms', component: FormExperimentComponent, data: {breadcrumb: 'Dynamic Forms'}},
+
+  { path: '', children: [
+    { path: '', redirectTo: '/maps', pathMatch: 'full'},
+    { path: 'maps', component: MapExperimentComponent, data: {breadcrumb: 'Maps'} },
+    { path: 'groups', component: GroupsExperimentComponent, data: {breadcrumb: 'Groups'} },
+    {
+      path: 'groups/:id/settings',
+      component: GroupSettingsComponent, data: {breadcrumb: 'Group Settings'}
+    },
+    { path: 'forms', component: FormExperimentComponent, data: {breadcrumb: 'Dynamic Forms'}},
+  ]},
 ];
 
 @NgModule({

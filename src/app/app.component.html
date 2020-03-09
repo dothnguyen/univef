@@ -29,8 +29,10 @@
         </span>
       </div>
     </nz-header>
-
     <nz-content>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item *ngFor="let item of breadcrumbService.breadcrumbs">{{item.label}}</nz-breadcrumb-item>
+      </nz-breadcrumb>
       <div class="inner-content">
         <router-outlet></router-outlet>
       </div>

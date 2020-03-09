@@ -1,4 +1,5 @@
-import { Component, ViewChild, ViewContainerRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef, AfterViewInit, OnInit } from '@angular/core';
+import { BreadcrumbService } from './core/breadcrumb.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { Component, ViewChild, ViewContainerRef, AfterViewInit } from '@angular/
 export class AppComponent implements AfterViewInit {
   isCollapsed = false;
 
-  constructor() {}
+  constructor(private breadcrumbService: BreadcrumbService) {}
 
   ngAfterViewInit() {
 
