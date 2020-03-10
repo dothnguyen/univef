@@ -12,7 +12,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
   { path: '',  data: {breadcrumb: 'Home'}, children: [
-    { 
+    {
       path: '', component: HomeComponent, data: {skip: true}
     },
     {
@@ -21,10 +21,10 @@ const routes: Routes = [
     },
     {
       path: 'super-admin', loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule),
-      data: {skip: false, breadcrumb: 'Super-Admin'}},
+      data: {skip: true, breadcrumb: 'Super-Admin'}},
     {
       path: 'experiment', loadChildren: () => import('./experiment/experiment.module').then(m => m.ExperimentModule),
-      data: {skip: false, breadcrumb: 'Experiment'}
+      data: {skip: true, breadcrumb: 'Experiment'}
     }
   ]},
 

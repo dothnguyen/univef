@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { Router, NavigationEnd } from '@angular/router';
+import { Observable, combineLatest } from 'rxjs';
+import { finalize, map, filter } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -21,37 +21,92 @@ export class SidemenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.menuData$ = this.http.get("http://localhost:3000/side-menu").pipe(
-      map((data: any) => {
 
-        const parentItems = data.filter(
-          i => i.items && i.items.length > 0
-        );
+    const router$ = this.router.events.pipe(
+      filter(evt => evt instanceof NavigationEnd),
+    );
 
-        parentItems.map(i => i.selected = false);
+    this.menuData$ = combineLatest(router$,
+      this.http.get("http://localhost:3000/side-menu").pipe(
+        map(obj => obj as any[])
+      )
+    ).pipe(
+      map(([_, data]) => {
 
-        for (const parent of parentItems) {
+        // const parentItems = data.filter(
+        //   i => i.items && i.items.length > 0
+        // );
 
-          parent.items.map(i => i.selected = false);
+        // const children = data.filter(i => !i.items || i.items.length == 0);
 
-          const match = parent.items.filter(i => {
 
-            if (i.match) {
-              const reg = new RegExp(i.match);
-              return reg.test(this.router.url);
-            }
+        // parentItems.map(i => i.selected = false);
 
-            return i.url === this.router.url;
-          });
+        // for (const parent of parentItems) {
 
-          if (match && match.length > 0) {
-            match.map(i => i.selected = true);
-            parent.open = true;
-          }
+        //   parent.selected = false;
+        //   parent.items.map(i => i.selected = false);
+
+        //   if (parent.match) {
+        //     const reg = new RegExp(parent.match);
+        //     const match = reg.test(this.router.url);
+
+        //     if (match) {
+        //       parent.selected = true;
+        //     }
+        //   } else {
+        //     if (parent.url === this.router.url)
+        //       parent.selected = true;
+        //   }
+
+        //   const match = parent.items.filter(i => {
+
+        //     if (i.match) {
+        //       const reg = new RegExp(i.match);
+        //       return reg.test(this.router.url);
+        //     }
+
+        //     return i.url === this.router.url;
+        //   });
+
+        //   if (match && match.length > 0) {
+        //     match.map(i => i.selected = true);
+        //     parent.open = true;
+        //   }
+        // }
+
+        for(let item of data) {
+          this.checkItem(null, item);
         }
 
         return data;
       }),
     );
+  }
+
+  checkItem(parent, item) {
+    item.selected = false;
+    if (item.items && item.items.length > 0)
+      item.open = false;
+
+    if (!item.items || item.items.length == 0) {
+      let match = false;
+      if (item.match) {
+        const reg = new RegExp(item.match);
+        match = reg.test(this.router.url);
+      } else {
+        match = item.url === this.router.url;
+      }
+
+      if (match) {
+        item.selected = true;
+        if (parent) parent.open = true
+      }
+
+    } else {
+      for (let child of item.items) {
+        this.checkItem(item, child);
+      }
+    }
   }
 }

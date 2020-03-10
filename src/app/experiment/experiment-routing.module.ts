@@ -12,19 +12,19 @@ import { ExperimentComponent } from './pages/experiment/experiment.component';
 
 const routes: Routes = [
 
-  { path: '', component: ExperimentComponent,  data: {breadcrumb: 'Experiment', skip: true}, children: [
-    { path: 'maps', component: MapExperimentComponent, data: {breadcrumb: 'Maps'}},
-    { path: 'groups', data: {breadcrumb: 'Groups'}, component: GroupsExperimentComponent, children: [
+  { path: '', component: ExperimentComponent, data: {breadcrumb: 'Experiment', skip: true}, children: [
+    { path: 'maps', component: MapExperimentComponent, data: {breadcrumb: 'Maps', skip: false}},
+    { path: 'groups', data: {breadcrumb: 'Groups', skip: false}, children: [
       {
         path: '',
         component: GroupListComponent, data: {skip: true}
       },
       {
         path: 'settings/:id',
-        component: GroupSettingsComponent, data: {breadcrumb: 'Group Settings'}
+        component: GroupSettingsComponent, data: {breadcrumb: 'Group Settings', skip: false}
       },
     ]},
-    { path: 'forms', component: FormExperimentComponent, data: {breadcrumb: 'Dynamic Forms'}},
+    { path: 'forms', component: FormExperimentComponent, data: {breadcrumb: 'Dynamic Forms', skip: false}},
   ]},
 ];
 
