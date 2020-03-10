@@ -1,8 +1,11 @@
-<ng-container *ngIf="groupInfo$ | async as groupInfo">
-  <h1>{{groupInfo.group_code}} - {{ groupInfo.name }}</h1>
-</ng-container>
+<nz-spin [nzSpinning]="loading">
+  <ng-container *ngIf="groupInfo$ | async as groupInfo">
+    <h1>{{groupInfo.group_code}} - {{ groupInfo.name }}</h1>
+  </ng-container>
 
-<p>
+  <p>
 
-  group-settings works!
-</p>
+    group-settings works!
+  </p>
+
+</nz-spin>

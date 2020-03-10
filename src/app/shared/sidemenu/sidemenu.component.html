@@ -8,14 +8,14 @@
       <ng-container *ngIf="item.items && item.items.length > 0">
           <li nz-submenu  [nzTitle]="!isCollapsed ? item.name : ''" nzIcon="form" [nzOpen]="item.open ? '': null">
             <ul>
-            <li nz-menu-item *ngFor="let subItem of item.items" nzTitle="Dashboard" [nzSelected]="item.selected? '': null">
+            <li nz-menu-item *ngFor="let subItem of item.items" nzTitle="Dashboard" [nzSelected]="subItem.selected">
               <a routerLink="{{subItem.url}}">{{subItem.name}}</a>
               </li>
             </ul>
           </li>
       </ng-container>
       <ng-container *ngIf="!item.items || item.items.length <= 0">
-      <li nz-menu-item nz-tooltip [nzTitle]="isCollapsed ? item.name : ''" nzPlacement="right" [nzSelected]="item.selected? '' : null">
+      <li nz-menu-item nz-tooltip [nzTitle]="isCollapsed ? item.name : ''" nzPlacement="right" [nzSelected]="item.selected">
               <i nz-icon nzType="mail"></i>
               <span><a routerLink="{{item.url}}">{{item.name}}</a></span>
             </li>

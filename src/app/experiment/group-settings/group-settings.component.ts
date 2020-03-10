@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { map, concatMap, tap } from 'rxjs/operators';
+import { map, concatMap, tap, delay } from 'rxjs/operators';
 import { Group, GroupsService } from '../groups.service';
 
 @Component({
@@ -27,6 +27,7 @@ export class GroupSettingsComponent implements OnInit {
     this.groupInfo$ = this.groupId$.pipe(
       tap(() => this.loading = true),
       concatMap(id => this.groupService.getGroup(id)),
+      delay(1000),
       tap(() => this.loading = false)
     );
   }

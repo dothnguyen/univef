@@ -260,7 +260,8 @@
         },
         {
           "name": "Groups",
-          "url": "^/experiment/groups[/?]"
+          "url": "/experiment/groups",
+          "match": "^\/experiment\/groups(\/{0,1}|\/.+)$"
         }
       ]
     },
