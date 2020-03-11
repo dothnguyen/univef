@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscriber, Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, concatMap, tap, delay, shareReplay } from 'rxjs/operators';
 import { Group, GroupsService } from '../groups.service';
+import { BreadcrumbService } from 'src/app/core/breadcrumb.service';
 
 @Component({
   selector: 'app-group-settings',
@@ -25,7 +26,9 @@ export class GroupSettingsComponent implements OnInit, OnDestroy {
   groupSub: Subscription;
 
   constructor(private route: ActivatedRoute,
-              private groupService: GroupsService) { }
+              private router: Router,
+              private groupService: GroupsService,
+              private breadCrumbService: BreadcrumbService) { }
 
   ngOnInit() {
     this.groupId$ = this.route.params.pipe(
@@ -43,7 +46,8 @@ export class GroupSettingsComponent implements OnInit, OnDestroy {
     this.groupSub = this.groupInfo$.subscribe((grp) => {
       this.group = grp;
       //this.route.data = grp.name;
-      this.route.snapshot.data.breadcrumb = grp.name;
+      //this.route.snapshot.data.breadcrumb = grp.name;
+      this.breadCrumbService.setLinkTitle(this.router.url, grp.name);
     });
   }
 

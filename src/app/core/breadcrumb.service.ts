@@ -47,4 +47,11 @@ export class BreadcrumbService {
 
   breadcrumbs = [];
 
+  setLinkTitle(url: string, title: string) {
+    if (url.startsWith('/')) {
+      url = url.substr(1);
+    }
+    this.breadcrumbs.filter(b => b.url === url)
+                    .map(b => b.label = title);
+  }
 }
